@@ -36,8 +36,8 @@ You can place files anywhere in the source tree and they will automatically comp
 
 ## Planned
 
-- Render system event hooks.
-  =======
-- Window icon importing from config.
-- JavaScript implementation.
-- Shader system implementation.
+Window icon importing from config.
+
+JavaScript implementation.
+
+Shader system implementation.
