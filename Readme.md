@@ -30,14 +30,21 @@ cd Project
 make
 ```
 
-## Notes
+## Using Render Event Hooks
+
+```cpp
+#include "Render.h" // Make sure Render.h is included.
+
+void myRenderHook( SDL_Event event ) {
+    // Do something with SDL Events...
+}
+
+// Somehere else in the code.
+RenderSystem::AddEventHook( myRenderHook ); 
+```
+
+It will add the callback to the render system and execute them one at a time.
+
+# Notes
 
 You can place files anywhere in the source tree and they will automatically compile into the binary, assuming they are error free.
-
-## Planned
-
-Window icon importing from config.
-
-JavaScript implementation.
-
-Shader system implementation.
