@@ -29,9 +29,6 @@ cd Project
 ```
 make
 ```
-
-3 ) Profit???
-
 ## Notes
 
 You can place files anywhere in the source tree and they will automatically compile into the binary, assuming they are error free.
