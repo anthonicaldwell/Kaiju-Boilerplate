@@ -32,12 +32,22 @@
 #include "Render/Render.h"
 #include "Logic/Logic.h"
 
+void escapeHook(SDL_Event event) {
+	if (event.type == SDL_KEYDOWN) {
+		if (event.key.keysym.sym == SDLK_ESCAPE) {
+			renderData.active = false;
+		}
+	}
+}
+
 int main ( int argc, char * argv[] ) {
 
 	// Real configuration backend selection should happen here later via JSON config
 	std::unique_ptr<RenderBackend> renderBackend = std::make_unique<RenderBackendOpenGL4>();
 
 	RenderSystem::Init( std::move(renderBackend) );
+
+	RenderSystem::AddEventHook( escapeHook );
 
 	Logic::Init();
 

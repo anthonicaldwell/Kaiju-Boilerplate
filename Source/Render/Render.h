@@ -34,12 +34,16 @@
 #include "RenderCommon.h"
 #include "RenderBackendOpenGL4.h"
 
+using RenderEventHook = void(*)(SDL_Event event);
+
 class RenderSystem {
 public:
 	RenderSystem() = delete;
 
 	static void Init( std::unique_ptr<RenderBackend> backend );
 	static void Reinit( void );
+
+	static void AddEventHook( RenderEventHook hook );
 
 	static void Events( void );
 
@@ -50,6 +54,7 @@ public:
 
 private:
 	inline static std::unique_ptr<RenderBackend> renderBackend;
+	inline static std::vector<RenderEventHook> hooks;
 };
 
 

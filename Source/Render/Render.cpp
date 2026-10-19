@@ -50,10 +50,18 @@ void RenderSystem::Reinit( void ) {
 	}
 }
 
+void RenderSystem::AddEventHook( RenderEventHook hook ) {
+	hooks.push_back(hook);
+}
+
 void RenderSystem::Events( void ) {
 	while (SDL_PollEvent(&renderData.event) !=0 ) {
 		if (renderData.event.type == SDL_QUIT) {
 			renderData.active = false;
+		}
+
+		for (auto hook : hooks) {
+			hook(renderData.event);
 		}
 	}
 }

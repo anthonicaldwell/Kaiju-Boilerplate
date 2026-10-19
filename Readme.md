@@ -29,12 +29,19 @@ cd Project
 ```
 make
 ```
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3c7798d (Added render event hooks)
 ## Notes
 
 You can place files anywhere in the source tree and they will automatically compile into the binary, assuming they are error free.
 
+<<<<<<< HEAD
 ## Planned
 - Render system event hooks.
+=======
+>>>>>>> 3c7798d (Added render event hooks)
 - Window icon importing from config.
 - JavaScript implementation.
 - Shader system implementation.
