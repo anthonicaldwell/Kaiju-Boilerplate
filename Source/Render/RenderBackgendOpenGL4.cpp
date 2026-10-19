@@ -29,6 +29,7 @@
 	SOFTWARE.
 ------------------------------------------------------------------------------*/
 #include "RenderBackendOpenGL4.h"
+#include "stb_image.h"
 
 void RenderBackendOpenGL4::Init( void ) {
 	SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO );
@@ -42,11 +43,15 @@ void RenderBackendOpenGL4::Init( void ) {
 	this->InitWindow();
 	this->InitContext();	
 
+	if (renderConfig.iconPath != "") {
+		this->LoadIcon( renderConfig.iconPath );
+	}
+
 	if (renderConfig.fullscreen) {
 		SDL_SetWindowFullscreen( renderData.window, SDL_WINDOW_FULLSCREEN_DESKTOP );
 	}
 
-	if (renderConfig.resizeable) {
+	if (renderConfig.resizable) {
 		SDL_SetWindowResizable( renderData.window, SDL_TRUE );
 	}
 
@@ -67,11 +72,15 @@ void RenderBackendOpenGL4::Reinit( void ) {
 	this->InitWindow();
 	this->InitContext();
 
+	if (renderConfig.iconPath != "") {
+		this->LoadIcon( renderConfig.iconPath );
+	}
+
 	if (renderConfig.fullscreen) {
 		SDL_SetWindowFullscreen( renderData.window, SDL_WINDOW_FULLSCREEN_DESKTOP );
 	}
 
-	if (renderConfig.resizeable) {
+	if (renderConfig.resizable) {
 		SDL_SetWindowResizable( renderData.window, SDL_TRUE );
 	}
 }
@@ -112,4 +121,37 @@ void RenderBackendOpenGL4::InitContext( void ) {
 	}
 
 	SDL_GL_SetSwapInterval(renderConfig.vsync);
+}
+
+void RenderBackendOpenGL4::LoadIcon( std::string path ) {
+	int width, height, channels;
+
+	unsigned char* pixels = stbi_load(path.c_str(), &width, &height, &channels, 4);
+
+	if (!pixels) {
+		std::cerr << "Unable to load window icon!" << std::endl;
+		return;
+	}
+
+	Uint32 rmask, gmask, bmask, amask;
+	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	    rmask = 0xff000000;
+	    gmask = 0x00ff0000;
+	    bmask = 0x0000ff00;
+	    amask = 0x000000ff;
+	#else
+	    rmask = 0x000000ff;
+	    gmask = 0x0000ff00;
+	    bmask = 0x00ff0000;
+	    amask = 0xff000000;
+	#endif
+
+	SDL_Surface* iconSurf = SDL_CreateRGBSurfaceFrom( pixels, width, height, 32, width * 4,
+		rmask, gmask, bmask, amask );
+
+	if (iconSurf) {
+		SDL_SetWindowIcon( renderData.window, iconSurf );
+		SDL_FreeSurface( iconSurf );
+	}
+
 }

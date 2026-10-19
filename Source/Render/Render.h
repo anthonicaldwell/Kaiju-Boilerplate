@@ -52,6 +52,8 @@ public:
 
 	static void Exit( void );
 
+	static void LoadIcon( std::string path );
+
 private:
 	inline static std::unique_ptr<RenderBackend> renderBackend;
 	inline static std::vector<RenderEventHook> hooks;

@@ -46,6 +46,8 @@ typedef struct RenderData_s {
 
 typedef struct RenderConfig_s {
 	std::string title;
+	std::string iconPath;
+	
 	int windowWidth;
 	int windowHeight;
 	bool fullscreen;

@@ -48,6 +48,7 @@ public:
 	void InitWindow( void );
 	void InitContext( void );
 
+	void LoadIcon( std::string path );
 };
 
 #endif

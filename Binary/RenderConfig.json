@@ -1,8 +1,9 @@
 {
 	"title": "Kaiju Boilerplate",
+	"icon": "../Assets/Icons/icon.png",
 	"windowWidth": 960,
 	"windowHeight": 540,
 	"fullscreen": false,
-	"resizable": true,
+	"resizable": false,
 	"vsync": true
 }

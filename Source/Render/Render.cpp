@@ -29,6 +29,7 @@
 	SOFTWARE.
 ------------------------------------------------------------------------------*/
 #include "Render.h"
+#include "stb_image.h"
 
 void RenderSystem::Init( std::unique_ptr<RenderBackend> backend ) {
 

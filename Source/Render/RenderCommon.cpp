@@ -46,6 +46,7 @@ void RenderConfig_s::Load( const std::string& path ) {
 		file >> j;
 
 		renderConfig.title = j.value("title","Default");
+		renderConfig.iconPath = j.value("icon", "");
 		renderConfig.windowWidth = j.value("windowWidth",960);
 		renderConfig.windowHeight = j.value("windowHeight",540);
 		renderConfig.fullscreen = j.value("fullscreen",false);
