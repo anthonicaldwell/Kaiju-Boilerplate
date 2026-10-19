@@ -2,6 +2,7 @@
 	"title": "Kaiju Boilerplate",
 	"windowWidth": 960,
 	"windowHeight": 540,
-	"resizable": false,
+	"fullscreen": false,
+	"resizable": true,
 	"vsync": true
 }

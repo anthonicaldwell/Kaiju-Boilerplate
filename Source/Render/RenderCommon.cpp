@@ -48,7 +48,8 @@ void RenderConfig_s::Load( const std::string& path ) {
 		renderConfig.title = j.value("title","Default");
 		renderConfig.windowWidth = j.value("windowWidth",960);
 		renderConfig.windowHeight = j.value("windowHeight",540);
-		renderConfig.resizeable = j.value("resizeable",false);
+		renderConfig.fullscreen = j.value("fullscreen",false);
+		renderConfig.resizable = j.value("resizable",false);
 		renderConfig.vsync = j.value("vsync",1);
 
 	} catch (const std::exception& e) {

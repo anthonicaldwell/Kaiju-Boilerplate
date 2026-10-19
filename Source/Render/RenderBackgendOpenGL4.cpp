@@ -42,6 +42,14 @@ void RenderBackendOpenGL4::Init( void ) {
 	this->InitWindow();
 	this->InitContext();	
 
+	if (renderConfig.fullscreen) {
+		SDL_SetWindowFullscreen( renderData.window, SDL_WINDOW_FULLSCREEN_DESKTOP );
+	}
+
+	if (renderConfig.resizeable) {
+		SDL_SetWindowResizable( renderData.window, SDL_TRUE );
+	}
+
 	/*--------------------------------------------------------------------------
 		Just in case:
 		glEnable( GL_DEPTH_TEST );
@@ -54,8 +62,18 @@ void RenderBackendOpenGL4::Reinit( void ) {
 	SDL_GL_DeleteContext( renderData.context );
 	SDL_DestroyWindow( renderData.window );
 
+	renderConfig.Load("renderConfig.json");
+
 	this->InitWindow();
 	this->InitContext();
+
+	if (renderConfig.fullscreen) {
+		SDL_SetWindowFullscreen( renderData.window, SDL_WINDOW_FULLSCREEN_DESKTOP );
+	}
+
+	if (renderConfig.resizeable) {
+		SDL_SetWindowResizable( renderData.window, SDL_TRUE );
+	}
 }
 
 void RenderBackendOpenGL4::FrameStart( void ) {

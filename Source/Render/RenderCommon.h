@@ -48,14 +48,16 @@ typedef struct RenderConfig_s {
 	std::string title;
 	int windowWidth;
 	int windowHeight;
-
+	bool fullscreen;
 	int vsync;
-	bool resizeable;
+	bool resizable;
 
 	RenderConfig_s() 
-	: title("Config Not Loaded"), windowWidth(960), windowHeight(540), vsync(1), resizeable(false) {
+	: title("Config Not Loaded"), windowWidth(960), windowHeight(540), 
+	fullscreen(false), vsync(1), resizable(false) {
 		this->Load("RenderConfig.json");
 	}
+
 	void Load( const std::string& path );	
 } RenderConfig;
 
