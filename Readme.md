@@ -32,3 +32,9 @@ make
 ## Notes
 
 You can place files anywhere in the source tree and they will automatically compile into the binary, assuming they are error free.
+
+## Planned
+- Render system event hooks.
+- Window icon importing from config.
+- JavaScript implementation.
+- Shader system implementation.
