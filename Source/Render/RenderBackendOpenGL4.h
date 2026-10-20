@@ -48,7 +48,21 @@ public:
 	void InitWindow( void );
 	void InitContext( void );
 
-	void LoadIcon( std::string path );
+/*------------------------------------------------------------------------------
+	Shaders
+------------------------------------------------------------------------------*/
+	void LoadShader(const std::string& shaderName );
+	void UseShader(const std::string& shaderName );
+
+	void ShaderPushTexture() override;
+	void ShaderPushMatrix() override;
+	void ShaderPushVec4() override;
+	void ShaderPushVec3() override;
+	void ShaderPushVec2() override;
+	void ShaderPushFloat() override;
+	void ShaderPushInt() override;
+private:
+	std::vector<Shader> shaderList;
 };
 
 #endif

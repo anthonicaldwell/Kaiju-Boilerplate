@@ -40,16 +40,90 @@ void RenderSystem::Init( std::unique_ptr<RenderBackend> backend ) {
 		return;
 	}
 
-	if (renderBackend != nullptr) {
-		renderBackend->Init();
+	if (renderBackend == nullptr) return;
+	
+	renderBackend->Init();
+
+	if (renderConfig.iconPath != "") {
+		LoadWindowIcon(renderConfig.iconPath);
 	}
+	
 }
 
 void RenderSystem::Reinit( void ) {
-	if (renderBackend != nullptr) {
-		renderBackend->Reinit();
-	}
+	if (renderBackend == nullptr) return;
+	
+	renderBackend->Reinit();
 }
+
+void RenderSystem::FrameStart( void ) {
+	if (renderBackend == nullptr) return;
+	
+	renderBackend->FrameStart();
+}
+
+void RenderSystem::FrameEnd( void ) {
+	if (renderBackend == nullptr) return;
+	
+	renderBackend->FrameEnd();
+}
+
+void RenderSystem::Exit( void ) {
+	if (renderBackend == nullptr) return;
+	
+	renderBackend->Exit();
+}
+
+/*------------------------------------------------------------------------------
+	Shaders
+--------------------------------------------------------------------------------
+	Just about every modern graphics API uses some form of shaders.
+	This is the API to load and use them.
+------------------------------------------------------------------------------*/
+void RenderSystem::LoadShader(const std::string& shaderName ) {
+	if (renderBackend == nullptr) return;
+	
+	renderBackend->LoadShader( shaderName );
+}
+
+void RenderSystem::UseShader(const std::string& shaderName ) {
+
+}
+
+void RenderSystem::ShaderPushTexture() {
+
+}
+
+void RenderSystem::ShaderPushMatrix() {
+
+}
+
+void RenderSystem::ShaderPushVec4() {
+
+}
+
+void RenderSystem::ShaderPushVec3() {
+
+}
+
+void RenderSystem::ShaderPushVec2() {
+
+}
+
+void RenderSystem::ShaderPushFloat() {
+
+}
+
+void RenderSystem::ShaderPushInt() {
+
+}
+
+/*------------------------------------------------------------------------------
+	Events
+--------------------------------------------------------------------------------
+	Hooks into the SDL Event system allowing the programmer to easily add
+	callbacks.
+------------------------------------------------------------------------------*/
 
 void RenderSystem::AddEventHook( RenderEventHook hook ) {
 	hooks.push_back(hook);
@@ -67,20 +141,41 @@ void RenderSystem::Events( void ) {
 	}
 }
 
-void RenderSystem::FrameStart( void ) {
-	if (renderBackend != nullptr) {
-		renderBackend->FrameStart();
-	}
-}
+/*------------------------------------------------------------------------------
+	Utility
+--------------------------------------------------------------------------------
+	Various utility functions.
+------------------------------------------------------------------------------*/
 
-void RenderSystem::FrameEnd( void ) {
-	if (renderBackend != nullptr) {
-		renderBackend->FrameEnd();
-	}
-}
+void RenderSystem::LoadWindowIcon( std::string path ) {
+	int width, height, channels;
 
-void RenderSystem::Exit( void ) {
-	if (renderBackend != nullptr) {
-		renderBackend->Exit();
+	unsigned char* pixels = stbi_load(path.c_str(), &width, &height, &channels, 4);
+
+	if (!pixels) {
+		std::cerr << "Unable to load window icon!" << std::endl;
+		return;
 	}
+
+	Uint32 rmask, gmask, bmask, amask;
+	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	    rmask = 0xff000000;
+	    gmask = 0x00ff0000;
+	    bmask = 0x0000ff00;
+	    amask = 0x000000ff;
+	#else
+	    rmask = 0x000000ff;
+	    gmask = 0x0000ff00;
+	    bmask = 0x00ff0000;
+	    amask = 0xff000000;
+	#endif
+
+	SDL_Surface* iconSurf = SDL_CreateRGBSurfaceFrom( pixels, width, height, 32, width * 4,
+		rmask, gmask, bmask, amask );
+
+	if (iconSurf) {
+		SDL_SetWindowIcon( renderData.window, iconSurf );
+		SDL_FreeSurface( iconSurf );
+	}
+
 }

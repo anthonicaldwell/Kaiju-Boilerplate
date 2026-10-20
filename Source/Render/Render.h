@@ -36,27 +36,44 @@
 
 using RenderEventHook = void(*)(SDL_Event event);
 
-class RenderSystem {
-public:
-	RenderSystem() = delete;
+namespace RenderSystem {
 
-	static void Init( std::unique_ptr<RenderBackend> backend );
-	static void Reinit( void );
-
-	static void AddEventHook( RenderEventHook hook );
-
-	static void Events( void );
-
-	static void FrameStart( void );
-	static void FrameEnd( void );
-
-	static void Exit( void );
-
-	static void LoadIcon( std::string path );
-
-private:
 	inline static std::unique_ptr<RenderBackend> renderBackend;
 	inline static std::vector<RenderEventHook> hooks;
+
+	void Init( std::unique_ptr<RenderBackend> backend );
+	void Reinit( void );
+
+	void FrameStart( void );
+	void FrameEnd( void );
+
+	void Exit( void );
+
+/*------------------------------------------------------------------------------
+	Shaders
+------------------------------------------------------------------------------*/
+	void LoadShader(const std::string& shaderName );
+	void UseShader(const std::string& shaderName );
+
+	void ShaderPushTexture();
+	void ShaderPushMatrix();
+	void ShaderPushVec4();
+	void ShaderPushVec3();
+	void ShaderPushVec2();
+	void ShaderPushFloat();
+	void ShaderPushInt();
+
+/*------------------------------------------------------------------------------
+	Events
+------------------------------------------------------------------------------*/
+	void AddEventHook( RenderEventHook hook );
+
+	void Events( void );
+/*------------------------------------------------------------------------------
+	Utility
+------------------------------------------------------------------------------*/
+	void LoadWindowIcon( std::string path );
+	
 };
 
 

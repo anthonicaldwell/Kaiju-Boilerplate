@@ -29,8 +29,10 @@
 	SOFTWARE.
 ------------------------------------------------------------------------------*/
 #include "Common.h"
+#include "Assets/Assets.h"
 #include "Render/Render.h"
 #include "Logic/Logic.h"
+
 
 void escapeHook(SDL_Event event) {
 	if (event.type == SDL_KEYDOWN) {
@@ -48,6 +50,8 @@ int main ( int argc, char * argv[] ) {
 	RenderSystem::Init( std::move(renderBackend) );
 
 	RenderSystem::AddEventHook( escapeHook );
+
+	RenderSystem::LoadShader( "Unlit2D" );
 
 	Logic::Init();
 

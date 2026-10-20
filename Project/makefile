@@ -2,6 +2,7 @@ BINARY_NAME			= boilerplate.bin
 COMPILER			= g++
 
 DIR_BIN				= ../Binary/
+DIR_BIN_DBG			= ../BinaryDebug/
 DIR_SRC				= ../Source/
 DIR_OBJ				= Object/
 
@@ -13,17 +14,24 @@ FLAGS_COMPILE		= -std=c++20 -I$(DIR_SRC) $(shell pkg-config --cflags sdl2 glew)
 
 all: $(DIR_BIN)$(BINARY_NAME)
 
+all-debug: $(DIR_BIN_DBG)$(BINARY_NAME)
+
 $(DIR_BIN)$(BINARY_NAME): $(OBJECTS)
 	@mkdir -p $(DIR_BIN)
 	$(COMPILER) $^ $(FLAGS_LINK) -o $@
 	@chmod +x $(DIR_BIN)$(BINARY_NAME)
+
+$(DIR_BIN_DBG)$(BINARY_NAME): $(OBJECTS)
+	@mkdir -p $(DIR_BIN_DBG)
+	$(COMPILER) -g $^ $(FLAGS_LINK) -o $@
+	@chmod +x $(DIR_BIN_DBG)$(BINARY_NAME)
 
 # Pattern rule matches subdirectories recursively using %
 $(DIR_OBJ)%.o: $(DIR_SRC)%.cpp
 	@mkdir -p $(dir $@)
 	$(COMPILER) $(FLAGS_COMPILE) -c $< -o $@
 
-.PHONY: all clean
+.PHONY: all all-debug clean
 
 clean:
-	rm -rf $(DIR_OBJ) $(DIR_BIN)$(BINARY_NAME)
+	rm -rf $(DIR_OBJ) $(DIR_BIN)$(BINARY_NAME) $(DIR_BIN_DBG)$(BINARY_NAME)

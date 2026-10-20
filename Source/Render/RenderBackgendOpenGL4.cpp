@@ -29,6 +29,7 @@
 	SOFTWARE.
 ------------------------------------------------------------------------------*/
 #include "RenderBackendOpenGL4.h"
+#include "../Assets/Assets.h"
 #include "stb_image.h"
 
 void RenderBackendOpenGL4::Init( void ) {
@@ -41,11 +42,10 @@ void RenderBackendOpenGL4::Init( void ) {
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	
 	this->InitWindow();
-	this->InitContext();	
+	this->InitContext();
 
-	if (renderConfig.iconPath != "") {
-		this->LoadIcon( renderConfig.iconPath );
-	}
+	glewExperimental = GL_TRUE;
+	glewInit();
 
 	if (renderConfig.fullscreen) {
 		SDL_SetWindowFullscreen( renderData.window, SDL_WINDOW_FULLSCREEN_DESKTOP );
@@ -71,10 +71,6 @@ void RenderBackendOpenGL4::Reinit( void ) {
 
 	this->InitWindow();
 	this->InitContext();
-
-	if (renderConfig.iconPath != "") {
-		this->LoadIcon( renderConfig.iconPath );
-	}
 
 	if (renderConfig.fullscreen) {
 		SDL_SetWindowFullscreen( renderData.window, SDL_WINDOW_FULLSCREEN_DESKTOP );
@@ -123,35 +119,146 @@ void RenderBackendOpenGL4::InitContext( void ) {
 	SDL_GL_SetSwapInterval(renderConfig.vsync);
 }
 
-void RenderBackendOpenGL4::LoadIcon( std::string path ) {
-	int width, height, channels;
+/*------------------------------------------------------------------------------
+	Shaders
+------------------------------------------------------------------------------*/
+void RenderBackendOpenGL4::LoadShader(const std::string& shaderName ) {
+	// Load shader text
+	// Convert to const
 
-	unsigned char* pixels = stbi_load(path.c_str(), &width, &height, &channels, 4);
+	// Create, Compile frag, vert, prog. Link prog;
 
-	if (!pixels) {
-		std::cerr << "Unable to load window icon!" << std::endl;
-		return;
+	Debug::log( "render", "1" );
+
+	std::string shaderVertPath = "../Assets/Shaders/"+shaderName+".vert";
+	std::string shaderFragPath = "../Assets/Shaders/"+shaderName+".frag";
+
+	bool hasVert = Assets::Exists( shaderVertPath );
+	bool hasFrag = Assets::Exists( shaderFragPath );
+
+	Shader shade = {};
+
+	Debug::log( "render", "2" );
+	
+	shade.name = shaderName;
+
+	Debug::log( "render", "2.1" );
+
+	shade.progID = glCreateProgram();
+
+	Debug::log( "render", "3" );
+
+	int params;
+
+	if (hasVert) {
+		std::string vertSrc = Assets::LoadTextFile( shaderVertPath );
+		const char * vsrc = vertSrc.c_str();
+
+		Debug::log( "render", "4" );
+
+		shade.vertID = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource( shade.vertID, 1, &vsrc, NULL );
+		glCompileShader( shade.vertID );
+
+		params = 0;
+
+		glGetShaderiv( shade.vertID, GL_COMPILE_STATUS, &params );
+
+		if (GL_TRUE != params) {
+			int maxLength = 2048, actualLength = 0;
+			char slog[2048];
+			glGetShaderInfoLog( shade.vertID, maxLength, &actualLength, slog);
+
+			std::string log;
+			log += "ERROR: Vertex shader did not compile.\nIndex: ";
+			log += std::to_string( shade.vertID ) + "\n";
+			log += slog;
+			Debug::log("shader", log);
+			return;
+		}
+
+		glAttachShader( shade.progID, shade.vertID );
 	}
 
-	Uint32 rmask, gmask, bmask, amask;
-	#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	    rmask = 0xff000000;
-	    gmask = 0x00ff0000;
-	    bmask = 0x0000ff00;
-	    amask = 0x000000ff;
-	#else
-	    rmask = 0x000000ff;
-	    gmask = 0x0000ff00;
-	    bmask = 0x00ff0000;
-	    amask = 0xff000000;
-	#endif
+	if (hasFrag) {
+		std::string fragSrc =  Assets::LoadTextFile( shaderFragPath );
+		const char * fsrc = fragSrc.c_str();
 
-	SDL_Surface* iconSurf = SDL_CreateRGBSurfaceFrom( pixels, width, height, 32, width * 4,
-		rmask, gmask, bmask, amask );
+		shade.fragID = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource( shade.fragID, 1, &fsrc, NULL );
+		glCompileShader( shade.fragID );
 
-	if (iconSurf) {
-		SDL_SetWindowIcon( renderData.window, iconSurf );
-		SDL_FreeSurface( iconSurf );
+		params = 0;		
+
+		glGetShaderiv( shade.fragID, GL_COMPILE_STATUS, &params );
+
+		if (GL_TRUE != params) {
+			int maxLength = 2048, actualLength = 0;
+			char slog[2048];
+			glGetShaderInfoLog( shade.fragID, maxLength, &actualLength, slog);
+
+			std::string log;
+			log += "ERROR: Fragment shader did not compile.\nIndex: ";
+			log += std::to_string( shade.fragID ) + "\n";
+			log += slog;
+			Debug::log("shader", log);
+			return;
+		}
+
+		glAttachShader( shade.progID, shade.fragID );
 	}
 
+	glLinkProgram( shade.progID );
+
+	params = 0;
+
+	glGetProgramiv( shade.progID, GL_LINK_STATUS, &params);
+
+	if (GL_TRUE != params) {
+		int maxLength = 2048, actualLength = 0;
+			char slog[2048];
+			glGetProgramInfoLog( shade.progID, maxLength, &actualLength, slog);
+
+			std::string log;
+			log += "ERROR: Shader program did not link.\nIndex: ";
+			log += std::to_string( shade.progID ) + "\n";
+			log += slog;
+			Debug::log("shader", log);
+			return;
+	}
+
+	shaderList.push_back(shade);
+}
+
+void RenderBackendOpenGL4::UseShader(const std::string& shaderName ) {
+	// Find shader name
+	// Use shader
+}
+
+void RenderBackendOpenGL4::ShaderPushTexture() {
+	// Push Sampler2D Uniform
+}
+
+void RenderBackendOpenGL4::ShaderPushMatrix() {
+	// Push Matrix Uniform
+}
+
+void RenderBackendOpenGL4::ShaderPushVec4() {
+	// Push Vec4 uniform
+}
+
+void RenderBackendOpenGL4::ShaderPushVec3() {
+	// Push Vec3 uniform
+}
+
+void RenderBackendOpenGL4::ShaderPushVec2() {
+	// Push Vec2 uniform
+}
+
+void RenderBackendOpenGL4::ShaderPushFloat() {
+	// Push Float uniform
+}
+
+void RenderBackendOpenGL4::ShaderPushInt() {
+	// Push Int
 }

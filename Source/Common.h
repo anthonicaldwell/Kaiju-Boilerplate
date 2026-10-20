@@ -32,19 +32,41 @@
 #define __common_h__
 
 #include <cmath>
+#include <cstdint>
+
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include <memory>
 #include <string>
 #include <sstream>
 #include <vector>
 #include <utility>
 
-
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 
 #include <nlohmann/json.hpp>
+
+namespace Debug {
+	static inline void log(std::string logName, std::string message) {
+		std::string logFileName = logName + ".txt";
+		std::string fullMessage = "";
+
+		time_t now = time(0);
+		tm* ltm = localtime(&now);
+		char timeBuf[80] = {};
+		strftime(timeBuf, 80, "%Y-%m-%d %H:%M:%S", ltm);
+
+		fullMessage = "[ ";
+		fullMessage += timeBuf;
+		fullMessage += "] " + message;
+
+		std::ofstream logFile(logFileName, std::ios_base::app);
+		logFile << fullMessage << std::endl;
+		logFile.close();
+	}
+}
 
 #endif
