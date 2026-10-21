@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"rend",
+				"renderConfig"
+			],
+			[
 				"render",
 				"renderSystem"
 			],
@@ -25,63 +29,6 @@
 			]
 		]
 	},
-	"buffers":
-	[
-		{
-			"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.h",
-			"settings":
-			{
-				"buffer_size": 2557,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.cpp",
-			"settings":
-			{
-				"buffer_size": 2381,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackgendOpenGL4.cpp",
-			"settings":
-			{
-				"buffer_size": 4872,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackendOpenGL4.h",
-			"settings":
-			{
-				"buffer_size": 2050,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.h",
-			"settings":
-			{
-				"buffer_size": 2724,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.cpp",
-			"settings":
-			{
-				"buffer_size": 3363,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
-	],
 	"build_system": "",
 	"build_system_choices":
 	[
@@ -114,11 +61,26 @@
 	},
 	"file_history":
 	[
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackgendOpenGL4.cpp",
+		"/home/kaiju/Git/Kaiju Boilerplate/Project/makefile",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Assets/Assets.h",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Assets/Assets.cpp",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.cpp",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.h",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackendOpenGL4.h",
+		"/home/kaiju/Desktop/rend/shader.h",
+		"/home/kaiju/Desktop/rend/shader.cpp",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Common.h",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.cpp",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.h",
+		"/home/kaiju/Desktop/SD/Projects/Windows Game Engines/OpenGLTest/Source/Loggy.h",
+		"/home/kaiju/Desktop/SD/Projects/Windows Game Engines/Baem/Source/Common.h",
+		"/home/kaiju/Desktop/SD/Projects/Windows Game Engines/Baem/Source/Utility.cpp",
+		"/home/kaiju/Desktop/SD/Projects/Windows Game Engines/Baem/Source/Utility.h",
+		"/home/kaiju/Git/Kaiju Boilerplate/Project/Kaiju Boilerplate.sublime-project",
 		"/home/kaiju/Desktop/SD/Projects/Windows Game Engines/tinyeng/src/fs.h",
 		"/home/kaiju/Desktop/SD/TX/my_projects/ucrt-msys-code/code/arch/2026.03.15/ks/source/data/ks_data.h",
 		"/home/kaiju/Desktop/SD/TX/my_projects/ucrt-msys-code/code/arch/2026.02.16/universe/main.cpp",
-		"/home/kaiju/Desktop/rend/shader.h",
-		"/home/kaiju/Desktop/rend/shader.cpp",
 		"/home/kaiju/Desktop/SD/TX/my_projects/ucrt-msys-code/code/arch/2026.03.15/mad/manifold.cpp",
 		"/home/kaiju/Desktop/SD/TX/my_projects/ucrt-msys-code/code/arch/2026.03.15/angel/angel.cpp",
 		"/home/kaiju/Desktop/SD/TX/my_projects/ucrt-msys-code/code/arch/2026.03.15/147/build_brain.py",
@@ -126,17 +88,8 @@
 		"/home/kaiju/Desktop/SD/TX/my_projects/ucrt-msys-code/code/arch/2026.03.15/147/brain.dat",
 		"/home/kaiju/Desktop/SD/TX/my_projects/ucrt-msys-code/code/arch/2026.03.15/ks/source/graph/ks_graph.cpp",
 		"/home/kaiju/Desktop/SD/TX/my_projects/ucrt-msys-code/code/arch/2026.03.15/ks/source/graph/ks_graph_backend_sdl.cpp",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Common.h",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.cpp",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackendOpenGL4.h",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Assets/Assets.h",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.cpp",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackgendOpenGL4.cpp",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.h",
 		"/home/kaiju/Git/Kaiju Boilerplate/Binary/RenderConfig.json",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.h",
 		"/home/kaiju/Git/Kaiju Boilerplate/.gitignore",
-		"/home/kaiju/Git/Kaiju Boilerplate/Project/makefile",
 		"/home/kaiju/Git/Kaiju Boilerplate/Source/Logic/Logic.h",
 		"/home/kaiju/Git/Kaiju Boilerplate/Source/Logic/Logic.cpp",
 		"/home/kaiju/Git/Kaiju Boilerplate/Source/Entry.cpp",
@@ -186,6 +139,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"();\n",
 			"cpp",
 			"event",
 			"h"
@@ -203,192 +157,6 @@
 		"whole_word": false,
 		"wrap": true
 	},
-	"groups":
-	[
-		{
-			"selected": 4,
-			"sheets":
-			[
-				{
-					"buffer": 0,
-					"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2557,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2535,
-								2535
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 770.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2381,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackgendOpenGL4.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4872,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackendOpenGL4.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2050,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 78.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2724,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2039,
-								2039
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 386.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3363,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2359,
-								2359
-							]
-						],
-						"settings":
-						{
-							"rulers":
-							[
-								80
-							],
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 645.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
-			]
-		}
-	],
 	"incremental_find":
 	{
 		"height": 26.0
@@ -425,7 +193,6 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
-	"project": "Kaiju Boilerplate.sublime-project",
 	"replace":
 	{
 		"height": 48.0
@@ -458,7 +225,6 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
 	"settings":
 	{
 	},
@@ -466,7 +232,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 305.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

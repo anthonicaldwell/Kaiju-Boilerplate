@@ -37,7 +37,7 @@ void RenderConfig_s::Load( const std::string& path ) {
 	std::ifstream file(path);
 
 	if (!file.is_open()) {
-		std::cerr << "Failed to open RenderConfig.json" << std::endl;
+		Debug::log( "config", "Failed to open RenderConfig.json" );
 		return;
 	}
 
@@ -54,6 +54,11 @@ void RenderConfig_s::Load( const std::string& path ) {
 		renderConfig.vsync = j.value("vsync",1);
 
 	} catch (const std::exception& e) {
-		std::cerr << "Config Error: " << std::endl << e.what() << std::endl;
+		std::string logMsg = "Config Error: ";
+		logMsg += "\n";
+		logMsg += e.what();
+		logMsg += "\n";
+		
+		Debug::log( "config", logMsg );
 	}
 }

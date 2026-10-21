@@ -41,19 +41,10 @@ void RenderBackendOpenGL4::Init( void ) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	
-	this->InitWindow();
-	this->InitContext();
+	Reinit();
 
 	glewExperimental = GL_TRUE;
 	glewInit();
-
-	if (renderConfig.fullscreen) {
-		SDL_SetWindowFullscreen( renderData.window, SDL_WINDOW_FULLSCREEN_DESKTOP );
-	}
-
-	if (renderConfig.resizable) {
-		SDL_SetWindowResizable( renderData.window, SDL_TRUE );
-	}
 
 	/*--------------------------------------------------------------------------
 		Just in case:
@@ -64,10 +55,14 @@ void RenderBackendOpenGL4::Init( void ) {
 }
 
 void RenderBackendOpenGL4::Reinit( void ) {
-	SDL_GL_DeleteContext( renderData.context );
-	SDL_DestroyWindow( renderData.window );
 
-	renderConfig.Load("renderConfig.json");
+	if ( renderData.context != nullptr) {
+		SDL_GL_DeleteContext( renderData.context );
+	}
+
+	if ( renderData.window != nullptr ) {
+		SDL_DestroyWindow( renderData.window );
+	}
 
 	this->InitWindow();
 	this->InitContext();
@@ -127,9 +122,6 @@ void RenderBackendOpenGL4::LoadShader(const std::string& shaderName ) {
 	// Convert to const
 
 	// Create, Compile frag, vert, prog. Link prog;
-
-	Debug::log( "render", "1" );
-
 	std::string shaderVertPath = "../Assets/Shaders/"+shaderName+".vert";
 	std::string shaderFragPath = "../Assets/Shaders/"+shaderName+".frag";
 
@@ -138,23 +130,14 @@ void RenderBackendOpenGL4::LoadShader(const std::string& shaderName ) {
 
 	Shader shade = {};
 
-	Debug::log( "render", "2" );
-	
 	shade.name = shaderName;
-
-	Debug::log( "render", "2.1" );
-
 	shade.progID = glCreateProgram();
-
-	Debug::log( "render", "3" );
 
 	int params;
 
 	if (hasVert) {
 		std::string vertSrc = Assets::LoadTextFile( shaderVertPath );
 		const char * vsrc = vertSrc.c_str();
-
-		Debug::log( "render", "4" );
 
 		shade.vertID = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource( shade.vertID, 1, &vsrc, NULL );

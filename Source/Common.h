@@ -51,7 +51,7 @@
 
 namespace Debug {
 	static inline void log(std::string logName, std::string message) {
-		std::string logFileName = logName + ".txt";
+		std::string logPath = "../Logs/" + logName + ".txt";
 		std::string fullMessage = "";
 
 		time_t now = time(0);
@@ -63,7 +63,7 @@ namespace Debug {
 		fullMessage += timeBuf;
 		fullMessage += "] " + message;
 
-		std::ofstream logFile(logFileName, std::ios_base::app);
+		std::ofstream logFile(logPath, std::ios_base::app);
 		logFile << fullMessage << std::endl;
 		logFile.close();
 	}

@@ -36,7 +36,7 @@ void RenderSystem::Init( std::unique_ptr<RenderBackend> backend ) {
 	if (backend != nullptr) {
 		renderBackend = std::move(backend);
 	} else {
-		std::cerr << "Render backend was nullptr!" << std::endl;
+		Debug::log( "render", "Render backend was nullptr!" );
 		return;
 	}
 
