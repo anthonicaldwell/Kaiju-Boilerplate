@@ -2,7 +2,7 @@
     RenderBackendOpenGL4.h
 --------------------------------------------------------------------------------
 	Date Created: 2026.10.18
-	Date Updated: 2026.10.19
+	Date Updated: 2026.10.21
 --------------------------------------------------------------------------------
 	
 --------------------------------------------------------------------------------
@@ -49,12 +49,22 @@ public:
 	void InitContext( void );
 
 /*------------------------------------------------------------------------------
+	Texture
+------------------------------------------------------------------------------*/
+	bool Exists( const Texture& tex ) override;
+	void LoadTexture( const std::string name, const std::string path ) override;
+	void UseTexture( const std::string name ) override;
+	void FreeTexture( const std::string name ) override;
+	void FreeAllTextures() override;
+
+/*------------------------------------------------------------------------------
 	Shaders
 ------------------------------------------------------------------------------*/
 	void LoadShader(const std::string& shaderName );
 	void UseShader(const std::string& shaderName );
+	void FreeShader(const std::string& shaderName );
+ 	void FreeAllShaders();
 
-	void ShaderPushTexture() override;
 	void ShaderPushMatrix() override;
 	void ShaderPushVec4() override;
 	void ShaderPushVec3() override;
@@ -62,6 +72,8 @@ public:
 	void ShaderPushFloat() override;
 	void ShaderPushInt() override;
 private:
+	Shader currentShader;
+	std::vector<Texture> texList;
 	std::vector<Shader> shaderList;
 };
 

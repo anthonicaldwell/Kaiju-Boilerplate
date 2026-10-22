@@ -38,6 +38,7 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
+#include <functional>
 #include <memory>
 #include <string>
 #include <sstream>

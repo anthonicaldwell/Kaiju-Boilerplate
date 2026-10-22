@@ -2,7 +2,7 @@
     Render.h
 --------------------------------------------------------------------------------
 	Date Created: 2026.10.18
-	Date Updated: 2026.10.19
+	Date Updated: 2026.10.21
 --------------------------------------------------------------------------------
 	RenderSystem definition. Handles core rending logic.
 --------------------------------------------------------------------------------
@@ -32,6 +32,7 @@
 #define __render_h__
 
 #include "RenderCommon.h"
+#include "PolyList.h"
 #include "RenderBackendOpenGL4.h"
 
 using RenderEventHook = void(*)(SDL_Event event);
@@ -50,12 +51,27 @@ namespace RenderSystem {
 	void Exit( void );
 
 /*------------------------------------------------------------------------------
+	Texture
+------------------------------------------------------------------------------*/
+	bool Exists( const Texture& tex );
+	void LoadTexture( const std::string name, const std::string path );
+	void UseTexture( const std::string name );
+	void FreeTexture( const std::string name );
+	void FreeAllTextures();
+
+/*------------------------------------------------------------------------------
+	Geometry
+------------------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------------------
 	Shaders
 ------------------------------------------------------------------------------*/
 	void LoadShader(const std::string& shaderName );
 	void UseShader(const std::string& shaderName );
+	void FreeShader(const std::string& shaderName );
+ 	void FreeAllShaders();
 
-	void ShaderPushTexture();
 	void ShaderPushMatrix();
 	void ShaderPushVec4();
 	void ShaderPushVec3();

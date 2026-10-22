@@ -2,7 +2,7 @@
     Render.cpp
 --------------------------------------------------------------------------------
 	Date Created: 2026.10.18
-	Date Updated: 2026.10.19
+	Date Updated: 2026.10.21
 --------------------------------------------------------------------------------
 	RenderSystem implementation.
 --------------------------------------------------------------------------------
@@ -75,6 +75,47 @@ void RenderSystem::Exit( void ) {
 }
 
 /*------------------------------------------------------------------------------
+	Texture
+------------------------------------------------------------------------------*/
+bool RenderSystem::Exists(const Texture& tex ) {
+	if (renderBackend == nullptr) {
+		Debug::log( "render", "RS::Exists(tex): The got dang backend don't exist." );
+		return false;
+	}
+
+	return renderBackend->Exists(tex);
+}
+
+void RenderSystem::LoadTexture( const std::string name, const std::string path ) {
+	if (renderBackend == nullptr) return;
+
+	renderBackend->LoadTexture( name, path );
+}
+
+void RenderSystem::UseTexture( const std::string name ) {
+	if (renderBackend == nullptr) return;
+
+	renderBackend->UseTexture( name );
+}
+
+void RenderSystem::FreeTexture( const std::string name ) {
+	if (renderBackend == nullptr) return;
+
+	renderBackend->FreeTexture( name );
+}
+
+void RenderSystem::FreeAllTextures() {
+	if (renderBackend == nullptr) return;
+
+	renderBackend->FreeAllTextures();
+}
+
+/*------------------------------------------------------------------------------
+	Geometry
+------------------------------------------------------------------------------*/
+	
+
+/*------------------------------------------------------------------------------
 	Shaders
 --------------------------------------------------------------------------------
 	Just about every modern graphics API uses some form of shaders.
@@ -87,34 +128,50 @@ void RenderSystem::LoadShader(const std::string& shaderName ) {
 }
 
 void RenderSystem::UseShader(const std::string& shaderName ) {
+	if (renderBackend == nullptr) return;
 
+	renderBackend->UseShader( shaderName );
 }
 
-void RenderSystem::ShaderPushTexture() {
+void RenderSystem::FreeShader(const std::string& shaderName ) {
+	if (renderBackend == nullptr) return;
 
+	renderBackend->FreeShader( shaderName );
+}
+
+void RenderSystem::FreeAllShaders() {
+	if (renderBackend == nullptr) return;
+
+	renderBackend->FreeAllShaders();
 }
 
 void RenderSystem::ShaderPushMatrix() {
+	if (renderBackend == nullptr) return;
 
 }
 
 void RenderSystem::ShaderPushVec4() {
+	if (renderBackend == nullptr) return;
 
 }
 
 void RenderSystem::ShaderPushVec3() {
+	if (renderBackend == nullptr) return;
 
 }
 
 void RenderSystem::ShaderPushVec2() {
+	if (renderBackend == nullptr) return;
 
 }
 
 void RenderSystem::ShaderPushFloat() {
+	if (renderBackend == nullptr) return;
 
 }
 
 void RenderSystem::ShaderPushInt() {
+	if (renderBackend == nullptr) return;
 
 }
 

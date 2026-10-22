@@ -2,7 +2,7 @@
     RenderBackendOpenGL4.cpp
 --------------------------------------------------------------------------------
 	Date Created: 2026.10.18
-	Date Updated: 2026.10.19
+	Date Updated: 2026.10.21
 --------------------------------------------------------------------------------
 	
 --------------------------------------------------------------------------------
@@ -115,6 +115,89 @@ void RenderBackendOpenGL4::InitContext( void ) {
 }
 
 /*------------------------------------------------------------------------------
+	Texture
+------------------------------------------------------------------------------*/
+bool RenderBackendOpenGL4::Exists( const Texture& tex ) {
+	for ( auto itex = texList.begin(); itex != texList.end(); ) {
+		if (itex->rID == tex.rID) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void RenderBackendOpenGL4::LoadTexture( const std::string name, const std::string path ) {
+	Texture tex;
+	tex.rID = std::hash<std::string>{}(path);
+	
+	if (Exists(tex)) {
+		Debug::log( "texture", "LoadTexture(): Texture already loaded!" );
+		return;
+	}
+
+	tex.name = name;
+	unsigned char * data = tex.Load( path );
+
+	if (data) {
+		GLenum format = (tex.channels == 4) ? GL_RGBA : GL_RGB;
+
+		glGenTextures( 1, &tex.texID );
+		glBindTexture(GL_TEXTURE_2D, tex.texID );
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+			tex.width, tex.height, 0,
+			format,
+			GL_UNSIGNED_BYTE, data
+			);
+	} else {
+		Debug::log( "texture","LoadTexture(): Texture " + name + " failed to load." );
+	}
+}
+
+void RenderBackendOpenGL4::UseTexture( const std::string name ) {
+	for ( Texture tex : texList ) {
+		if (tex.name == name) {
+			glActiveTexture( GL_TEXTURE0 );
+			glBindTexture( GL_TEXTURE_2D, tex.texID );
+
+			// Need a better way to get uniform name so texture sampler name can be different
+			glUniform1i( glGetUniformLocation( currentShader.progID, "texDiffuse" ), 0 );
+			return;
+		}
+	}
+
+	Debug::log( "texture", "UseTexture(): Unable to find texture: " + name );	
+}
+
+void RenderBackendOpenGL4::FreeTexture( const std::string name ) {
+	for ( auto tex = texList.begin(); tex != texList.end(); ) {
+		if (tex->name == name) {
+			glDeleteTextures(1, &tex->texID );
+			texList.erase( tex );
+			return;
+		}
+	}
+
+	Debug::log( "texture", "FreeTexture(): Unable to find texture: " + name );
+}
+
+void RenderBackendOpenGL4::FreeAllTextures() {
+	for ( auto tex = texList.begin(); tex != texList.end(); ) {
+		glDeleteTextures(1, &tex->texID );
+		texList.erase( tex );
+	}
+}
+
+/*------------------------------------------------------------------------------
+	Geometry
+------------------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------------------
 	Shaders
 ------------------------------------------------------------------------------*/
 void RenderBackendOpenGL4::LoadShader(const std::string& shaderName ) {
@@ -214,12 +297,55 @@ void RenderBackendOpenGL4::LoadShader(const std::string& shaderName ) {
 }
 
 void RenderBackendOpenGL4::UseShader(const std::string& shaderName ) {
-	// Find shader name
-	// Use shader
+	for (const Shader shade : shaderList ) {
+		if (shade.name == shaderName) {
+			currentShader = shade;
+			glUseProgram( shade.progID );
+			return;
+		}
+	}
+
+	Debug::log( "shader", "UseShader(): Unable to find shader: " + shaderName );
 }
 
-void RenderBackendOpenGL4::ShaderPushTexture() {
-	// Push Sampler2D Uniform
+void RenderBackendOpenGL4::FreeShader(const std::string& shaderName ) {
+	for (const Shader shade : shaderList ) {
+		if (shade.name == shaderName) {
+			if (shade.vertID != 0) {
+				glDetachShader( shade.progID, shade.vertID );
+				glDeleteShader( shade.vertID );
+			}
+
+			if (shade.fragID != 0) {
+				glDetachShader( shade.progID, shade.fragID );
+				glDeleteShader( shade.fragID );
+			}
+				
+			glDeleteProgram( shade.progID );
+
+			return;
+		}
+	}
+
+	Debug::log( "shader", "FreeShader(): Unable to find shader: " + shaderName );
+} 
+
+void RenderBackendOpenGL4::FreeAllShaders() {
+
+	for (const Shader shade : shaderList ) {
+		if (shade.vertID != 0) {
+			glDetachShader( shade.progID, shade.vertID );
+			glDeleteShader( shade.vertID );
+		}
+
+		if (shade.fragID != 0) {
+			glDetachShader( shade.progID, shade.fragID );
+			glDeleteShader( shade.fragID );
+		}
+			
+		glDeleteProgram( shade.progID );
+	}
+
 }
 
 void RenderBackendOpenGL4::ShaderPushMatrix() {

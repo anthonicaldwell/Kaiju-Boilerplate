@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"functional",
+				"functional\tstandard header"
+			],
+			[
+				"Free",
+				"FreeAllShaders"
+			],
+			[
 				"rend",
 				"renderConfig"
 			],
@@ -61,18 +69,26 @@
 	},
 	"file_history":
 	[
+		"/home/kaiju/Desktop/rend/tex.cpp",
+		"/home/kaiju/Desktop/rend/tex.h",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/PolyList.h",
+		"/home/kaiju/Desktop/rend/rendCommon.h",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.h",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.h",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.cpp",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Common.h",
+		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.cpp",
+		"/home/kaiju/.android/avd/Medium_Phone.avd/config.ini",
 		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackgendOpenGL4.cpp",
+		"/home/kaiju/Git/Kaiju Boilerplate/BinaryDebug/RenderConfig.json",
+		"/home/kaiju/Git/Kaiju Boilerplate/Logs/config.txt",
+		"/home/kaiju/Git/Kaiju Boilerplate/Logs/render.txt",
 		"/home/kaiju/Git/Kaiju Boilerplate/Project/makefile",
 		"/home/kaiju/Git/Kaiju Boilerplate/Source/Assets/Assets.h",
 		"/home/kaiju/Git/Kaiju Boilerplate/Source/Assets/Assets.cpp",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.cpp",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/Render.h",
 		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderBackendOpenGL4.h",
 		"/home/kaiju/Desktop/rend/shader.h",
 		"/home/kaiju/Desktop/rend/shader.cpp",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Common.h",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.cpp",
-		"/home/kaiju/Git/Kaiju Boilerplate/Source/Render/RenderCommon.h",
 		"/home/kaiju/Desktop/SD/Projects/Windows Game Engines/OpenGLTest/Source/Loggy.h",
 		"/home/kaiju/Desktop/SD/Projects/Windows Game Engines/Baem/Source/Common.h",
 		"/home/kaiju/Desktop/SD/Projects/Windows Game Engines/Baem/Source/Utility.cpp",
@@ -139,6 +155,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"void Exists( Texture tex );",
+			"\tvirtual void LoadTexture( const std::string name, const std::string path );\n\tvirtual void UseTexture( const std::string name );\n\tvirtual void FreeTexture( const std::string name );\n\tvirtual void FreeAllTextures();",
+			"n",
 			"();\n",
 			"cpp",
 			"event",
@@ -174,11 +193,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
